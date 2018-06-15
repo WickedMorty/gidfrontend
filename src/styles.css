@@ -5,3 +5,7 @@
 .card a {
   cursor: pointer;
 }
+
+.logout {
+  cursor: pointer;
+}

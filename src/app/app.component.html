@@ -1,7 +1,7 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="getToken(); else noAuthBlock">
   <div id="sidebar">
     <button id="sidebarToggle" class="btn btn-border"></button>
-    <div class="body"><a href="enter.html" class="logout">Выйти из учетной записи</a>
+    <div class="body"><a class="logout" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Выйти из учетной записи</a>
       <div class="main">
         <a routerLink="/residential" routerLinkActive="active"><span><span
           class="navActive">Рейтинг</span> новостроек</span></a>
@@ -24,3 +24,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #noAuthBlock>
+  <router-outlet></router-outlet>
+</ng-template>

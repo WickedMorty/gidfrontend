@@ -3,8 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HttpClientModule} from "@angular/common/http";
-import {ResidentialService} from "./residential.service";
+import {HttpClientModule} from '@angular/common/http';
+import {ResidentialService} from './residential.service';
+import {FormsModule} from '@angular/forms';
+import {AuthService} from './auth.service';
+import {AuthGuard} from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -14,9 +17,10 @@ import {ResidentialService} from "./residential.service";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [ResidentialService],
+  providers: [ResidentialService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

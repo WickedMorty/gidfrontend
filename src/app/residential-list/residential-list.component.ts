@@ -21,10 +21,15 @@ export class ResidentialListComponent implements OnInit {
 
   ngOnInit() {
     this._residentialService.getResidential()
-      .subscribe(data => this.residentials = data,);
+      .subscribe(
+        data => this.residentials = data,
+        err => console.log(err)
+      );
   }
 
   photoSecurity(url: string) {
+    // console.log(url);
+    // console.log(this.sanitizer.bypassSecurityTrustStyle(`url(http://bgnsk.ru/upload/` + url + `)`));
     return this.sanitizer.bypassSecurityTrustStyle(`url(http://bgnsk.ru/upload/` + url + `)`);
   }
 
