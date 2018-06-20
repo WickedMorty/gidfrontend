@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ResidentialService} from "../residential.service";
 import {IResidential} from "../residential";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -12,6 +12,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class ResidentialListComponent implements OnInit {
 
   public residentials: IResidential[];
+  public quickSearchParam = [];
+
+  @ViewChild('phone') inputText;
+  private oldInput = "";
 
   constructor(private _residentialService: ResidentialService,
               private sanitizer: DomSanitizer,
@@ -20,11 +24,13 @@ export class ResidentialListComponent implements OnInit {
   }
 
   ngOnInit() {
+    $('.multipleInputDynamicWithInitialValue').fastselect();
     this._residentialService.getResidential()
       .subscribe(
         data => this.residentials = data,
         err => console.log(err)
       );
+    setInterval(()=>{this.onChangeSearch();}, 3000);
   }
 
   photoSecurity(url: string) {
@@ -37,4 +43,28 @@ export class ResidentialListComponent implements OnInit {
     // this.router.navigate(['/residential', residential.id]);
     this.router.navigate([residential.id], {relativeTo: this.route});
   }
+
+  onChangeSearch() {
+    let data = this.inputText.nativeElement;
+    if(this.oldInput !== data.value) {
+      this.oldInput = data.value;
+
+      this.quickSearchParam.splice(0, this.quickSearchParam.length);
+
+      for(let item of data.value.split(",")) {
+        let jitem = {};
+        jitem["value"] = item;
+        this.quickSearchParam.push(jitem);
+      }
+
+      this._residentialService.getResidentialBySearch(this.quickSearchParam)
+        .subscribe(
+          data => this.residentials = data,
+          err => console.log(err)
+        );
+
+    }
+  }
+
+
 }

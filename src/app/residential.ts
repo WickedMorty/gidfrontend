@@ -12,30 +12,14 @@ export interface IHouse {
 export interface IResidential {
   id: number;
   name: string;
-  coordinates: string;
-  address: string;
   district: string;
   developer: string;
-  subway: string;
-  subwayMin: number;
-  bus: string;
-  busMin: number;
-  parking: number;
   comfort: string;
-  externals: string[];
-  internals: string[];
-  ecologicals: string[];
-  securities: string[];
-  accomplishments: string[];
   image: string;
-  imageBig: string;
-  previewText: string;
-  detailText: string;
-  form1: string;
-  form2: string;
-  houses: IHouse[];
-  deadlin: string;
-  floor: number;
+  deadline: string;
+  form1: boolean;
+  form2: boolean;
+  contact: boolean;
 }
 
 

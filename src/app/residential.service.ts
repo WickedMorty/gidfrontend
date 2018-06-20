@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IResidential} from './residential';
 import {Observable} from 'rxjs/internal/Observable';
+import {RequestOptions} from '@angular/http';
 
 @Injectable()
 export class ResidentialService {
@@ -13,4 +14,10 @@ export class ResidentialService {
   getResidential(): Observable<IResidential[]> {
     return this.http.get<IResidential[]>(this._url);
   }
+
+  getResidentialBySearch(search: {}) {
+    console.log(search);
+    return this.http.post<IResidential[]>(this._url, search);
+  }
+
 }
